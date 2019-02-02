@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './gallery.scss';
 
 class gallery extends React.Component {
   constructor(props) {
@@ -10,14 +8,9 @@ class gallery extends React.Component {
   }
   render() {
     return (
+      <p>Gallery Component</p>
     );
   }
 }
-
-
-gallery.propTypes = {
-};
-gallery.defaultProps = {
-};
 
 export default gallery;
