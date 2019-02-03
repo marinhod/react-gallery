@@ -18,6 +18,10 @@ class Gallery extends React.Component {
     });
   }
 
+  handleClose = () => {
+    this.setState({expanded: false});
+  }
+
   render() {
     const items = this.props.items.map(item => (
       <li>
@@ -39,6 +43,7 @@ class Gallery extends React.Component {
           }}>
           <div class="middle">
             <div class="inner">
+              <span class="close" onClick={this.handleClose}></span>
               <img src={this.state.expandedSrc} />
             </div>
           </div>
