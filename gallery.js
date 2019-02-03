@@ -22,6 +22,14 @@ class Gallery extends React.Component {
     this.setState({expanded: false});
   }
 
+  handlePrevious = () => {
+    // code
+  }
+
+  handleNext = () => {
+    // code
+  }
+
   render() {
     const items = this.props.items.map(item => (
       <li>
@@ -43,6 +51,8 @@ class Gallery extends React.Component {
           }}>
           <div class="middle">
             <div class="inner">
+              <span className="previous" onClick={this.handlePrevious}></span>
+              <span className="next" onClick={this.handleNext}></span>
               <span className="download" onClick={this.handleDownload}></span>
               <span className="close" onClick={this.handleClose}></span>
               <img src={this.state.expandedSrc} />
