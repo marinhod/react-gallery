@@ -44,7 +44,7 @@ class Gallery extends React.Component {
           <div class="middle">
             <div class="inner">
               <span className="download" onClick={this.handleDownload}></span>
-              <span class="close" onClick={this.handleClose}></span>
+              <span className="close" onClick={this.handleClose}></span>
               <img src={this.state.expandedSrc} />
             </div>
           </div>
