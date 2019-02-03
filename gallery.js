@@ -1,16 +1,54 @@
 import React from 'react';
+import s from "./gallery.scss";
 
-class gallery extends React.Component {
+class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      expanded: false,
+      expandedSrc: ''
     };
   }
+
+  handleClick = (item) => {
+    document.body.setAttribute('class', 'stopScrolling');
+    this.setState({
+      expanded: true,
+      expandedSrc: item.src
+    });
+  }
+
   render() {
+    const items = this.props.items.map(item => (
+      <li>
+        <div 
+          className="imgDiv" 
+          style={{backgroundImage: `url("${item.src}")`}}
+          onClick={()=>this.handleClick(item)}>
+        </div>
+      </li>
+    ));
+    const screenObj = window.screen;
     return (
-      <p>Gallery Component</p>
+      <div>
+        <div 
+          id="imgDivExpanded" 
+          style={{
+            height: screenObj.availHeight,
+            display: this.state.expanded ? 'table' : 'none'
+          }}>
+          <div class="middle">
+            <div class="inner">
+              <img src={this.state.expandedSrc} />
+            </div>
+          </div>
+          </div>
+        <ul style={{display: this.state.expanded ? 'none' : 'block'}}>
+          {items}
+        </ul>
+      </div>
     );
   }
 }
 
-export default gallery;
+export default Gallery;
