@@ -10,7 +10,7 @@ class Gallery extends React.Component {
     };
   }
 
-  handleClick = (item) => {
+  handleExpand = (item) => {
     document.body.setAttribute('class', 'stopScrolling');
     this.setState({
       expanded: true,
@@ -28,7 +28,7 @@ class Gallery extends React.Component {
         <div 
           className="imgDiv" 
           style={{backgroundImage: `url("${item.src}")`}}
-          onClick={()=>this.handleClick(item)}>
+          onClick={()=>this.handleExpand(item)}>
         </div>
       </li>
     ));
