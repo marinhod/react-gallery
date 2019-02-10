@@ -75,6 +75,8 @@ class Gallery extends React.Component {
       this.handlePrevious();
     } else if (event.key === 'ArrowRight') {
       this.handleNext();
+    } else if (event.key === 'Escape') {
+      this.handleClose();
     }
   }
 
