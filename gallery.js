@@ -107,7 +107,11 @@ class Gallery extends React.Component {
               {this.showNext() ?
                 <span className="next" onClick={this.handleNext}></span>
                 : null}
-              <span className="download" onClick={this.handleDownload}></span>
+              <a 
+                download={this.state.expandedItem.title} 
+                href={this.state.expandedItem.src}>
+                <span className="download"></span>
+              </a>
               <span className="close" onClick={this.handleClose}></span>
               <img src={this.state.expandedItem.src} />
             </div>
