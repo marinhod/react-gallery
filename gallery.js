@@ -6,15 +6,17 @@ class Gallery extends React.Component {
     super(props);
     this.state = {
       expanded: false,
-      expandedSrc: ''
+      expandedItem: {},
+      expandedPosition: 0
     };
   }
 
-  handleExpand = (item) => {
+  handleExpand = (item, index) => {
     document.body.setAttribute('class', 'stopScrolling');
     this.setState({
       expanded: true,
-      expandedSrc: item.src
+      expandedItem: item,
+      expandedPosition: index
     });
   }
 
@@ -22,21 +24,67 @@ class Gallery extends React.Component {
     this.setState({expanded: false});
   }
 
+  handlePosition = (newPositionVirtual) => {
+    let newPosition = this.state.expandedPosition;
+    if (this.props.items[newPositionVirtual]) {
+      newPosition = newPositionVirtual;
+    }
+    let newItem = this.props.items[newPosition];
+    this.setState({
+      expandedItem: newItem,
+      expandedPosition: newPosition
+    });
+  }
+
   handlePrevious = () => {
-    // code
+    let newPosition = this.state.expandedPosition - 1;
+    this.handlePosition(newPosition);
   }
 
   handleNext = () => {
-    // code
+    let newPosition = this.state.expandedPosition + 1;
+    this.handlePosition(newPosition);
+  }
+
+  showPrevious = () => {
+    if (this.props.items[this.state.expandedPosition - 1]) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  showNext = () => {
+    if (this.props.items[this.state.expandedPosition + 1]) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown');
+  }
+
+  handleKeyDown = (event) => {
+    if (event.key === 'ArrowLeft') {
+      this.handlePrevious();
+    } else if (event.key === 'ArrowRight') {
+      this.handleNext();
+    }
   }
 
   render() {
-    const items = this.props.items.map(item => (
+    const items = this.props.items.map((item, index) => (
       <li>
         <div 
           className="imgDiv" 
           style={{backgroundImage: `url("${item.src}")`}}
-          onClick={()=>this.handleExpand(item)}>
+          onClick={()=>this.handleExpand(item, index)}>
         </div>
       </li>
     ));
@@ -51,14 +99,18 @@ class Gallery extends React.Component {
           }}>
           <div class="middle">
             <div class="inner">
-              <span className="previous" onClick={this.handlePrevious}></span>
-              <span className="next" onClick={this.handleNext}></span>
+              {this.showPrevious() ?
+                <span className="previous" onClick={this.handlePrevious}></span>
+                : null}
+              {this.showNext() ?
+                <span className="next" onClick={this.handleNext}></span>
+                : null}
               <span className="download" onClick={this.handleDownload}></span>
               <span className="close" onClick={this.handleClose}></span>
-              <img src={this.state.expandedSrc} />
+              <img src={this.state.expandedItem.src} />
             </div>
           </div>
-          </div>
+        </div>
         <ul style={{display: this.state.expanded ? 'none' : 'block'}}>
           {items}
         </ul>
